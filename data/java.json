@@ -1,0 +1,225 @@
+{
+  "language": "Java",
+  "topics": [
+    {
+      "id": "classes",
+      "title": "Classes",
+      "description": "A class is a blueprint for creating objects. It defines attributes (fields) and behaviors (methods) that its instances will have. In Java, every program is built around classes, making them the fundamental unit of object-oriented design.",
+      "best_practices": [
+        "Use PascalCase for class names (e.g. UserAccount, not userAccount)",
+        "Keep classes focused on a single responsibility",
+        "Declare fields as private and expose them through getters/setters"
+      ],
+      "code": "public class Dog {\n    private String name;\n    private int age;\n\n    public Dog(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n\n    public String getName() {\n        return name;\n    }\n\n    public int getAge() {\n        return age;\n    }\n}"
+    },
+    {
+      "id": "methods",
+      "title": "Methods",
+      "description": "A method is a block of code that performs a specific task and can be called by name. Methods take input via parameters, execute logic, and optionally return a value. They are the primary way to define behavior in a Java class.",
+      "best_practices": [
+        "Use camelCase for method names (e.g. calculateTotal, not CalculateTotal)",
+        "Keep methods short and focused on a single task",
+        "Prefer returning values over modifying state directly when possible"
+      ],
+      "code": "public class Calculator {\n\n    public int add(int a, int b) {\n        return a + b;\n    }\n\n    public double divide(double a, double b) {\n        if (b == 0) {\n            throw new IllegalArgumentException(\"Cannot divide by zero\");\n        }\n        return a / b;\n    }\n\n    public static void main(String[] args) {\n        Calculator calc = new Calculator();\n        System.out.println(calc.add(3, 4));      // 7\n        System.out.println(calc.divide(10, 2));  // 5.0\n    }\n}"
+    },
+    {
+      "id": "constructors",
+      "title": "Constructors",
+      "description": "A constructor is a special method called when an object is created with the new keyword. It shares the class name and has no return type. Constructors initialize the object's fields and set up any required state.",
+      "best_practices": [
+        "Always initialize all fields in the constructor to avoid null/uninitialized state",
+        "Use constructor overloading to support multiple ways to create an object",
+        "Call this() to delegate to another constructor and avoid duplicating setup logic"
+      ],
+      "code": "public class Person {\n    private String name;\n    private int age;\n\n    public Person(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n\n    // Overloaded: default age\n    public Person(String name) {\n        this(name, 0);\n    }\n\n    @Override\n    public String toString() {\n        return name + \" (age \" + age + \")\";\n    }\n\n    public static void main(String[] args) {\n        Person p1 = new Person(\"Alice\", 30);\n        Person p2 = new Person(\"Bob\");\n        System.out.println(p1); // Alice (age 30)\n        System.out.println(p2); // Bob (age 0)\n    }\n}"
+    },
+    {
+      "id": "variables",
+      "title": "Variable Types",
+      "description": "Java is a statically typed language — every variable must declare its type before use. Primitive types store simple values directly, while reference types (like String and arrays) store a reference to an object in memory.",
+      "best_practices": [
+        "Use the most specific type that fits your data (int over long if values are small)",
+        "Prefer final for variables that should not be reassigned",
+        "Use descriptive names — avoid single-letter names except in short loops"
+      ],
+      "code": "public class VariableTypes {\n    public static void main(String[] args) {\n        // Primitives\n        int age = 30;\n        double price = 9.99;\n        boolean isActive = true;\n        char grade = 'A';\n        long bigNumber = 10_000_000L;\n\n        // Reference types\n        String name = \"Alice\";\n        String empty = null;\n\n        // Final (constant)\n        final int MAX_RETRIES = 3;\n\n        System.out.println(name + \" is \" + age);\n        System.out.println(\"Active: \" + isActive);\n    }\n}"
+    },
+    {
+      "id": "conditionals",
+      "title": "If / Else / Else If",
+      "description": "Conditionals allow your program to make decisions by executing different code depending on whether a condition is true or false. Java evaluates boolean expressions inside if statements and follows the first matching branch.",
+      "best_practices": [
+        "Always use curly braces {} even for single-line if bodies to prevent bugs",
+        "Keep conditions simple — extract complex logic into a well-named boolean variable",
+        "Put the shorter or more likely branch first to improve readability"
+      ],
+      "code": "public class Grader {\n    public static String getGrade(int score) {\n        if (score >= 90) {\n            return \"A\";\n        } else if (score >= 80) {\n            return \"B\";\n        } else if (score >= 70) {\n            return \"C\";\n        } else {\n            return \"F\";\n        }\n    }\n\n    public static void main(String[] args) {\n        System.out.println(getGrade(95)); // A\n        System.out.println(getGrade(82)); // B\n        System.out.println(getGrade(60)); // F\n    }\n}"
+    },
+    {
+      "id": "switch",
+      "title": "Switch Statements",
+      "description": "A switch statement dispatches execution to different branches based on the value of an expression. It is cleaner than a long if/else if chain when matching against a fixed set of known values. Java 14+ also supports switch expressions for more concise syntax.",
+      "best_practices": [
+        "Always include a default case to handle unexpected values",
+        "Don't forget break statements — missing one causes fall-through to the next case",
+        "Use switch expressions (Java 14+) with -> syntax to avoid fall-through entirely"
+      ],
+      "code": "public class DayChecker {\n    public static void main(String[] args) {\n        String day = \"TUESDAY\";\n\n        // Classic switch\n        switch (day) {\n            case \"MONDAY\":\n            case \"TUESDAY\":\n            case \"WEDNESDAY\":\n            case \"THURSDAY\":\n            case \"FRIDAY\":\n                System.out.println(\"Weekday\");\n                break;\n            case \"SATURDAY\":\n            case \"SUNDAY\":\n                System.out.println(\"Weekend\");\n                break;\n            default:\n                System.out.println(\"Unknown day\");\n        }\n\n        // Switch expression (Java 14+)\n        String type = switch (day) {\n            case \"SATURDAY\", \"SUNDAY\" -> \"Weekend\";\n            default -> \"Weekday\";\n        };\n        System.out.println(type);\n    }\n}"
+    },
+    {
+      "id": "for-loop",
+      "title": "For Loop",
+      "description": "A for loop repeats a block of code a specific number of times. It combines initialization, a condition check, and an update expression into one compact line. Use it when you know in advance how many iterations you need.",
+      "best_practices": [
+        "Use i, j, k for simple index variables; use descriptive names when the index has meaning",
+        "Avoid modifying the loop variable inside the loop body — it makes behavior hard to follow",
+        "Cache the length/size in a variable if it involves a method call (e.g. list.size())"
+      ],
+      "code": "public class ForLoopExample {\n    public static void main(String[] args) {\n        // Count up\n        for (int i = 0; i < 5; i++) {\n            System.out.println(\"i = \" + i);\n        }\n\n        // Count down\n        for (int i = 10; i > 0; i -= 2) {\n            System.out.println(\"countdown: \" + i);\n        }\n\n        // Iterate over an array by index\n        String[] fruits = {\"apple\", \"banana\", \"cherry\"};\n        for (int i = 0; i < fruits.length; i++) {\n            System.out.println(i + \": \" + fruits[i]);\n        }\n    }\n}"
+    },
+    {
+      "id": "while-loop",
+      "title": "While Loop",
+      "description": "A while loop repeats a block of code as long as a condition remains true. Unlike a for loop, it does not have a built-in counter — use it when the number of iterations is not known in advance, such as reading input until a sentinel value is found.",
+      "best_practices": [
+        "Make sure the loop condition will eventually become false to avoid infinite loops",
+        "Use a do-while loop if the body must execute at least once before the condition is checked",
+        "Prefer a for loop when you know the iteration count upfront — while is for open-ended repetition"
+      ],
+      "code": "public class WhileExample {\n    public static void main(String[] args) {\n        // Basic while\n        int count = 0;\n        while (count < 5) {\n            System.out.println(\"count: \" + count);\n            count++;\n        }\n\n        // do-while: body runs at least once\n        int n = 10;\n        do {\n            System.out.println(\"n = \" + n);\n            n--;\n        } while (n > 8);\n        // prints: n=10, n=9\n    }\n}"
+    },
+    {
+      "id": "foreach",
+      "title": "For-Each Loop",
+      "description": "The for-each loop (enhanced for loop) iterates over every element in an array or collection without needing an index variable. It is more readable than a standard for loop when you only need the element's value, not its position.",
+      "best_practices": [
+        "Prefer for-each over index-based for loops whenever you don't need the index",
+        "Do not modify the collection you are iterating over inside a for-each — it causes a ConcurrentModificationException",
+        "Use a descriptive element name that reflects what each item represents"
+      ],
+      "code": "import java.util.List;\n\npublic class ForEachExample {\n    public static void main(String[] args) {\n        // Array\n        String[] colors = {\"red\", \"green\", \"blue\"};\n        for (String color : colors) {\n            System.out.println(color);\n        }\n\n        // List\n        List<Integer> numbers = List.of(1, 2, 3, 4, 5);\n        int sum = 0;\n        for (int number : numbers) {\n            sum += number;\n        }\n        System.out.println(\"Sum: \" + sum); // 15\n    }\n}"
+    },
+    {
+      "id": "arrays",
+      "title": "Arrays",
+      "description": "An array is a fixed-size, ordered collection of elements of the same type. Arrays in Java are zero-indexed and their size cannot change after creation. For a resizable collection, use ArrayList instead.",
+      "best_practices": [
+        "Access array length via .length (not .length()) — arrays are not objects with methods",
+        "Initialize arrays with values using the {} shorthand when values are known at compile time",
+        "Use Arrays.toString() to print array contents — printing the array directly gives a memory address"
+      ],
+      "code": "import java.util.Arrays;\n\npublic class ArrayExample {\n    public static void main(String[] args) {\n        // Declare and initialize\n        int[] scores = {85, 92, 78, 95, 60};\n\n        // Access and modify\n        System.out.println(scores[0]); // 85\n        scores[0] = 90;\n\n        // Length\n        System.out.println(scores.length); // 5\n\n        // Sort\n        Arrays.sort(scores);\n        System.out.println(Arrays.toString(scores)); // [60, 78, 90, 92, 95]\n\n        // 2D array\n        int[][] matrix = {\n            {1, 2, 3},\n            {4, 5, 6}\n        };\n        System.out.println(matrix[1][2]); // 6\n    }\n}"
+    },
+    {
+      "id": "arraylist",
+      "title": "ArrayList",
+      "description": "ArrayList is a resizable array implementation from the java.util package. Unlike plain arrays, it grows and shrinks automatically as elements are added or removed. It preserves insertion order and allows duplicate elements.",
+      "best_practices": [
+        "Declare the variable as List<T> (not ArrayList<T>) to keep code flexible to other implementations",
+        "Specify the generic type — avoid raw ArrayList to prevent runtime ClassCastExceptions",
+        "Use removeIf() or an Iterator to remove elements during iteration instead of modifying inside a for-each"
+      ],
+      "code": "import java.util.ArrayList;\nimport java.util.List;\n\npublic class ArrayListExample {\n    public static void main(String[] args) {\n        List<String> names = new ArrayList<>();\n\n        // Add\n        names.add(\"Alice\");\n        names.add(\"Bob\");\n        names.add(\"Charlie\");\n\n        // Access\n        System.out.println(names.get(0)); // Alice\n        System.out.println(names.size());  // 3\n\n        // Remove\n        names.remove(\"Bob\");\n\n        // Iterate\n        for (String name : names) {\n            System.out.println(name);\n        }\n\n        // Check membership\n        System.out.println(names.contains(\"Alice\")); // true\n    }\n}"
+    },
+    {
+      "id": "hashmaps",
+      "title": "HashMaps",
+      "description": "A HashMap stores key-value pairs and allows fast lookup by key. Keys must be unique; values can repeat. It does not guarantee insertion order — use LinkedHashMap if order matters.",
+      "best_practices": [
+        "Use getOrDefault() instead of get() when the key might be absent to avoid a NullPointerException",
+        "Iterate over entrySet() when you need both keys and values — it's more efficient than keySet()",
+        "Prefer Map<K,V> as the declared type for flexibility, just like List<T> for ArrayList"
+      ],
+      "code": "import java.util.HashMap;\nimport java.util.Map;\n\npublic class HashMapExample {\n    public static void main(String[] args) {\n        Map<String, Integer> scores = new HashMap<>();\n\n        // Put\n        scores.put(\"Alice\", 95);\n        scores.put(\"Bob\", 82);\n        scores.put(\"Charlie\", 78);\n\n        // Get\n        System.out.println(scores.get(\"Alice\")); // 95\n        System.out.println(scores.getOrDefault(\"Dave\", 0)); // 0\n\n        // Check key\n        System.out.println(scores.containsKey(\"Bob\")); // true\n\n        // Iterate entries\n        for (Map.Entry<String, Integer> entry : scores.entrySet()) {\n            System.out.println(entry.getKey() + \" -> \" + entry.getValue());\n        }\n\n        // Remove\n        scores.remove(\"Charlie\");\n    }\n}"
+    },
+    {
+      "id": "interfaces",
+      "title": "Interfaces",
+      "description": "An interface defines a contract — a set of method signatures that any implementing class must provide. Interfaces enable polymorphism and allow unrelated classes to share behavior. Since Java 8, interfaces can also have default and static methods with implementations.",
+      "best_practices": [
+        "Name interfaces after what they can do, often using adjectives (Printable, Comparable, Runnable)",
+        "Keep interfaces small and focused — prefer multiple single-purpose interfaces over one large one",
+        "Use default methods sparingly; they are for backwards compatibility, not primary logic"
+      ],
+      "code": "public interface Shape {\n    double area();\n    double perimeter();\n\n    default String describe() {\n        return \"Shape with area \" + String.format(\"%.2f\", area());\n    }\n}\n\npublic class Circle implements Shape {\n    private double radius;\n\n    public Circle(double radius) {\n        this.radius = radius;\n    }\n\n    @Override\n    public double area() {\n        return Math.PI * radius * radius;\n    }\n\n    @Override\n    public double perimeter() {\n        return 2 * Math.PI * radius;\n    }\n}\n\n// Usage\nShape s = new Circle(5);\nSystem.out.println(s.describe()); // Shape with area 78.54"
+    },
+    {
+      "id": "inheritance",
+      "title": "Inheritance & extends",
+      "description": "Inheritance lets a class (subclass) acquire the fields and methods of another class (superclass) using the extends keyword. The subclass can override inherited methods to provide its own behavior. Java supports single inheritance only — a class can extend just one other class.",
+      "best_practices": [
+        "Use @Override annotation when overriding methods — the compiler will catch typos in method signatures",
+        "Call super() in the subclass constructor to ensure the parent class is properly initialized",
+        "Prefer composition over inheritance when the relationship is 'has-a' rather than 'is-a'"
+      ],
+      "code": "public class Animal {\n    protected String name;\n\n    public Animal(String name) {\n        this.name = name;\n    }\n\n    public String speak() {\n        return \"...\";\n    }\n}\n\npublic class Dog extends Animal {\n\n    public Dog(String name) {\n        super(name);\n    }\n\n    @Override\n    public String speak() {\n        return \"Woof!\";\n    }\n}\n\npublic class Cat extends Animal {\n\n    public Cat(String name) {\n        super(name);\n    }\n\n    @Override\n    public String speak() {\n        return \"Meow!\";\n    }\n}\n\n// Usage\nAnimal[] animals = {new Dog(\"Rex\"), new Cat(\"Whiskers\")};\nfor (Animal a : animals) {\n    System.out.println(a.name + \": \" + a.speak());\n}"
+    },
+    {
+      "id": "exceptions",
+      "title": "Try / Catch / Finally",
+      "description": "Exception handling lets your program recover from runtime errors instead of crashing. Code that might throw an exception goes in the try block; the catch block handles specific error types; the finally block always runs regardless of whether an exception occurred, making it ideal for cleanup.",
+      "best_practices": [
+        "Catch the most specific exception type possible — avoid catching Exception or Throwable unless necessary",
+        "Never swallow exceptions silently with an empty catch block — at minimum, log the error",
+        "Use finally (or try-with-resources) to close streams and connections, even when an exception occurs"
+      ],
+      "code": "import java.io.*;\n\npublic class ExceptionExample {\n\n    // Basic try/catch/finally\n    public static int divide(int a, int b) {\n        try {\n            return a / b;\n        } catch (ArithmeticException e) {\n            System.err.println(\"Cannot divide by zero: \" + e.getMessage());\n            return 0;\n        } finally {\n            System.out.println(\"divide() finished\");\n        }\n    }\n\n    // Try-with-resources (auto-closes the reader)\n    public static void readFile(String path) throws IOException {\n        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {\n            String line;\n            while ((line = reader.readLine()) != null) {\n                System.out.println(line);\n            }\n        } catch (FileNotFoundException e) {\n            System.err.println(\"File not found: \" + path);\n        }\n    }\n}"
+    },
+    {
+      "id": "access-modifiers",
+      "title": "Access Modifiers",
+      "description": "Access modifiers control who can see and use a class, field, or method. They are fundamental to encapsulation — hiding implementation details and exposing only what is necessary. Java has four levels: public, protected, package-private (default), and private.",
+      "best_practices": [
+        "Default to private for fields and expose them via getters/setters if needed",
+        "Use protected only when designing for inheritance — it exposes internals to subclasses",
+        "Make classes and members as restrictive as possible; you can always loosen access later, but tightening breaks callers"
+      ],
+      "code": "public class BankAccount {\n    private double balance;        // only this class\n    protected String ownerId;      // this class + subclasses\n    String bankCode;               // package-private (same package)\n    public String currency;        // anyone\n\n    public BankAccount(double initialBalance) {\n        this.balance = initialBalance;\n        this.currency = \"USD\";\n    }\n\n    // Public getter — controlled read access\n    public double getBalance() {\n        return balance;\n    }\n\n    // Public method — controlled write access\n    public void deposit(double amount) {\n        if (amount > 0) {\n            balance += amount;\n        }\n    }\n}"
+    },
+    {
+      "id": "static",
+      "title": "Static Keyword",
+      "description": "The static keyword means a member belongs to the class itself, not to any particular instance. Static fields are shared across all instances; static methods can be called without creating an object. Static members are commonly used for utility methods, constants, and counters.",
+      "best_practices": [
+        "Use static for methods that don't depend on instance state (pure utility functions)",
+        "Declare constants as static final and name them in UPPER_SNAKE_CASE",
+        "Avoid mutable static fields — they act as global state and make code hard to test"
+      ],
+      "code": "public class MathUtils {\n    // Static constant\n    public static final double TAX_RATE = 0.08;\n\n    // Static counter shared across all instances\n    private static int instanceCount = 0;\n\n    public MathUtils() {\n        instanceCount++;\n    }\n\n    // Static utility method — no object needed\n    public static int clamp(int value, int min, int max) {\n        return Math.max(min, Math.min(max, value));\n    }\n\n    public static int getInstanceCount() {\n        return instanceCount;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(MathUtils.clamp(150, 0, 100)); // 100\n        new MathUtils();\n        new MathUtils();\n        System.out.println(MathUtils.getInstanceCount()); // 2\n    }\n}"
+    },
+    {
+      "id": "enums",
+      "title": "Enums",
+      "description": "An enum (enumeration) defines a fixed set of named constants. Unlike plain integers or strings, enums are type-safe — the compiler prevents invalid values. Enums can also have fields, constructors, and methods, making them far more powerful than simple constant lists.",
+      "best_practices": [
+        "Use enums instead of int or String constants to get type safety and self-documenting code",
+        "Add fields and methods to enums when each constant needs associated data (e.g. a display name or code)",
+        "Use switch on enums with all cases covered — the compiler can warn you about missing cases"
+      ],
+      "code": "public enum Direction {\n    NORTH, SOUTH, EAST, WEST;\n\n    public Direction opposite() {\n        return switch (this) {\n            case NORTH -> SOUTH;\n            case SOUTH -> NORTH;\n            case EAST  -> WEST;\n            case WEST  -> EAST;\n        };\n    }\n}\n\npublic enum Planet {\n    MERCURY(3.303e+23, 2.4397e6),\n    EARTH  (5.976e+24, 6.37814e6);\n\n    private final double mass;   // kg\n    private final double radius; // meters\n\n    Planet(double mass, double radius) {\n        this.mass = mass;\n        this.radius = radius;\n    }\n\n    public double surfaceGravity() {\n        final double G = 6.67300E-11;\n        return G * mass / (radius * radius);\n    }\n}\n\n// Usage\nSystem.out.println(Direction.NORTH.opposite()); // SOUTH\nSystem.out.println(Planet.EARTH.surfaceGravity()); // 9.80..."
+    },
+    {
+      "id": "lambda",
+      "title": "Lambda Expressions",
+      "description": "A lambda expression is a concise way to represent an anonymous function — a block of code you can pass around as a value. Lambdas implement functional interfaces (interfaces with exactly one abstract method) and are commonly used with collections, event handlers, and the Streams API.",
+      "best_practices": [
+        "Use lambdas to replace single-method anonymous classes — they are shorter and more readable",
+        "Keep lambda bodies short; extract complex logic into a named method and reference it with ::",
+        "Use method references (ClassName::method) when the lambda just calls an existing method directly"
+      ],
+      "code": "import java.util.*;\nimport java.util.function.*;\n\npublic class LambdaExample {\n    public static void main(String[] args) {\n        List<String> names = Arrays.asList(\"Charlie\", \"Alice\", \"Bob\");\n\n        // Lambda as Comparator\n        names.sort((a, b) -> a.compareTo(b));\n        System.out.println(names); // [Alice, Bob, Charlie]\n\n        // Method reference\n        names.forEach(System.out::println);\n\n        // Predicate\n        Predicate<String> startsWithA = name -> name.startsWith(\"A\");\n        System.out.println(startsWithA.test(\"Alice\")); // true\n\n        // Function\n        Function<String, Integer> length = String::length;\n        System.out.println(length.apply(\"Hello\")); // 5\n    }\n}"
+    },
+    {
+      "id": "streams",
+      "title": "Streams API",
+      "description": "The Streams API (java.util.stream) lets you process collections of data in a declarative, pipeline style. A stream is a sequence of elements that you can filter, transform, and reduce without modifying the original collection. Streams can also be parallelized with a single method call.",
+      "best_practices": [
+        "Streams are lazy — intermediate operations (filter, map) do nothing until a terminal operation (collect, forEach) is called",
+        "Don't reuse a stream — once consumed by a terminal operation, it is closed",
+        "Prefer collect(Collectors.toList()) or toList() (Java 16+) over forEach+add when you need the result as a list"
+      ],
+      "code": "import java.util.*;\nimport java.util.stream.*;\n\npublic class StreamExample {\n    public static void main(String[] args) {\n        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);\n\n        // Filter + map + collect\n        List<Integer> evenSquares = numbers.stream()\n            .filter(n -> n % 2 == 0)\n            .map(n -> n * n)\n            .collect(Collectors.toList());\n        System.out.println(evenSquares); // [4, 16, 36, 64, 100]\n\n        // Reduce\n        int sum = numbers.stream()\n            .reduce(0, Integer::sum);\n        System.out.println(sum); // 55\n\n        // String joining\n        List<String> words = List.of(\"hello\", \"world\", \"java\");\n        String joined = words.stream()\n            .map(String::toUpperCase)\n            .collect(Collectors.joining(\", \"));\n        System.out.println(joined); // HELLO, WORLD, JAVA\n    }\n}"
+    }
+  ]
+}
