@@ -1,0 +1,225 @@
+{
+  "language": "Python",
+  "topics": [
+    {
+      "id": "variables",
+      "title": "Variable Types",
+      "description": "Python is dynamically typed — you don't declare a type, the interpreter infers it at runtime. The built-in types you'll use most are int, float, str, bool, and None. You can check a variable's type with the built-in type() function.",
+      "best_practices": [
+        "Use snake_case for variable names (e.g. user_name, not userName)",
+        "Use ALL_CAPS for constants by convention (Python has no true constants)",
+        "Avoid using type() for type checks in logic — prefer isinstance() instead"
+      ],
+      "code": "# Numeric\nage = 30\nprice = 9.99\nbig = 10_000_000      # underscores for readability\n\n# Text\nname = \"Alice\"\nmulti = \"\"\"Line one\nLine two\"\"\"\n\n# Boolean & None\nis_active = True\nresult = None\n\n# Check types\nprint(type(age))       # <class 'int'>\nprint(type(price))     # <class 'float'>\nprint(isinstance(name, str))  # True\n\n# Dynamic reassignment (valid in Python)\nvalue = 42\nvalue = \"now a string\"  # no error"
+    },
+    {
+      "id": "functions",
+      "title": "Functions",
+      "description": "A function is a reusable block of code defined with the def keyword. Functions can accept parameters and return values using the return statement. Python also supports default parameter values and keyword arguments, making function calls flexible and self-documenting.",
+      "best_practices": [
+        "Use snake_case for function names (e.g. calculate_total, not calculateTotal)",
+        "Give every function a single, clear responsibility",
+        "Use default parameter values instead of None-checks when a sensible default exists"
+      ],
+      "code": "def greet(name, greeting=\"Hello\"):\n    return f\"{greeting}, {name}!\"\n\n\ndef add(a, b):\n    return a + b\n\n\ndef clamp(value, min_val, max_val):\n    \"\"\"Return value constrained between min_val and max_val.\"\"\"\n    return max(min_val, min(max_val, value))\n\n\nprint(greet(\"Alice\"))              # Hello, Alice!\nprint(greet(\"Bob\", \"Hi\"))         # Hi, Bob!\nprint(add(3, 4))                   # 7\nprint(clamp(150, 0, 100))          # 100"
+    },
+    {
+      "id": "strings",
+      "title": "Strings & Formatting",
+      "description": "Strings in Python are immutable sequences of characters. Python offers several ways to format strings, with f-strings (Python 3.6+) being the most readable and efficient. Strings support slicing and many built-in methods for searching, transforming, and splitting text.",
+      "best_practices": [
+        "Prefer f-strings over % formatting or .format() for clarity and performance",
+        "Use .strip() to remove accidental whitespace from user input before processing",
+        "Strings are immutable — methods like .upper() return a new string, they don't modify in place"
+      ],
+      "code": "name = \"Alice\"\nscore = 95.678\n\n# f-string (preferred)\nprint(f\"Name: {name}, Score: {score:.2f}\")\n\n# Common methods\ntext = \"  hello, world  \"\nprint(text.strip())          # 'hello, world'\nprint(text.upper())          # '  HELLO, WORLD  '\nprint(text.replace(\"world\", \"Python\"))\n\n# Splitting and joining\nwords = \"one,two,three\".split(\",\")\nprint(words)                 # ['one', 'two', 'three']\nprint(\"-\".join(words))       # 'one-two-three'\n\n# Slicing (same as list slicing)\ns = \"abcdef\"\nprint(s[1:4])   # 'bcd'\nprint(s[::-1])  # 'fedcba'"
+    },
+    {
+      "id": "conditionals",
+      "title": "If / Elif / Else",
+      "description": "Conditionals let your program make decisions. Python uses if, elif (not else if), and else. Indentation defines the block — there are no curly braces. Python also supports a one-line ternary expression for simple conditional assignments.",
+      "best_practices": [
+        "Don't compare booleans with == True or == False — just use the value directly: if is_active:",
+        "Use elif instead of nested if/else chains to keep code flat and readable",
+        "Avoid complex conditions in a single if — extract them into a named boolean variable"
+      ],
+      "code": "score = 82\n\nif score >= 90:\n    grade = \"A\"\nelif score >= 80:\n    grade = \"B\"\nelif score >= 70:\n    grade = \"C\"\nelse:\n    grade = \"F\"\n\nprint(grade)  # B\n\n# Ternary expression\nstatus = \"pass\" if score >= 60 else \"fail\"\nprint(status)  # pass\n\n# Truthiness: empty collections, 0, None are falsy\nitems = []\nif not items:\n    print(\"List is empty\")"
+    },
+    {
+      "id": "for-loop",
+      "title": "For Loop",
+      "description": "Python's for loop iterates directly over any iterable — lists, strings, ranges, dictionaries, and more. Use range() when you need a numeric counter. Use enumerate() when you need both the index and the value simultaneously.",
+      "best_practices": [
+        "Iterate over the collection directly rather than looping over range(len(collection))",
+        "Use enumerate() instead of a manual counter variable when you need the index",
+        "Use zip() to iterate over two lists in parallel instead of indexing both by hand"
+      ],
+      "code": "fruits = [\"apple\", \"banana\", \"cherry\"]\n\n# Direct iteration\nfor fruit in fruits:\n    print(fruit)\n\n# Range\nfor i in range(5):\n    print(i)  # 0 1 2 3 4\n\n# Enumerate: index + value\nfor i, fruit in enumerate(fruits):\n    print(f\"{i}: {fruit}\")\n\n# Zip: parallel iteration\nnames = [\"Alice\", \"Bob\"]\nscores = [95, 82]\nfor name, score in zip(names, scores):\n    print(f\"{name}: {score}\")\n\n# Dictionary iteration\ndata = {\"a\": 1, \"b\": 2}\nfor key, value in data.items():\n    print(f\"{key} = {value}\")"
+    },
+    {
+      "id": "while-loop",
+      "title": "While Loop",
+      "description": "A while loop repeats as long as its condition is true. Use it when the number of iterations is not known in advance. Python supports break to exit early and continue to skip the rest of the current iteration.",
+      "best_practices": [
+        "Ensure the loop condition will eventually become false — add a safety counter or break condition if unsure",
+        "Prefer a for loop when you know the iteration count or are looping over a collection",
+        "Use break for early exit and continue to skip iterations rather than adding nested if/else inside the loop"
+      ],
+      "code": "# Basic while\ncount = 0\nwhile count < 5:\n    print(count)\n    count += 1\n\n# Break on condition\ndata = [3, 7, -1, 9, 2]\nfor item in data:\n    if item < 0:\n        print(\"Negative found, stopping\")\n        break\n    print(item)\n\n# Continue to skip\nfor n in range(10):\n    if n % 2 == 0:\n        continue  # skip evens\n    print(n)  # 1 3 5 7 9\n\n# While with user-like sentinel\nqueue = [\"task1\", \"task2\", \"task3\"]\nwhile queue:\n    print(\"Processing:\", queue.pop(0))"
+    },
+    {
+      "id": "lists",
+      "title": "Lists",
+      "description": "A list is an ordered, mutable collection that can hold elements of any type. Lists are zero-indexed and support slicing, which lets you extract a sub-sequence in one expression. List comprehensions offer a concise, readable way to build lists from existing sequences.",
+      "best_practices": [
+        "Use list comprehensions instead of a for loop + append when building a new list from an existing one",
+        "Use negative indexing (list[-1]) to access elements from the end rather than calculating the last index manually",
+        "Prefer extend() over += in loops to avoid creating intermediate list copies"
+      ],
+      "code": "fruits = [\"apple\", \"banana\", \"cherry\"]\n\n# Indexing\nprint(fruits[0])    # apple\nprint(fruits[-1])   # cherry\n\n# Slicing\nprint(fruits[1:])   # ['banana', 'cherry']\nprint(fruits[:2])   # ['apple', 'banana']\n\n# Mutating\nfruits.append(\"date\")\nfruits.remove(\"banana\")\nprint(fruits)       # ['apple', 'cherry', 'date']\n\n# List comprehension\nnumbers = [1, 2, 3, 4, 5]\nsquares = [n ** 2 for n in numbers if n % 2 == 0]\nprint(squares)      # [4, 16]"
+    },
+    {
+      "id": "tuples",
+      "title": "Tuples",
+      "description": "A tuple is an ordered, immutable sequence. Unlike lists, tuples cannot be changed after creation. They are commonly used to group related values together and are the natural return type when a function needs to return multiple values.",
+      "best_practices": [
+        "Use tuples for data that should not change — coordinates, RGB values, fixed config pairs",
+        "Unpack tuples into named variables instead of accessing by index for readability",
+        "Prefer a namedtuple or dataclass over a plain tuple when the meaning of each position isn't obvious"
+      ],
+      "code": "# Creation\npoint = (3, 7)\ncoords = 10, 20      # parentheses optional\nsingle = (42,)       # trailing comma required for single-element tuple\n\n# Indexing (same as list)\nprint(point[0])      # 3\n\n# Unpacking\nx, y = point\nprint(f\"x={x}, y={y}\")\n\n# Swap with tuple unpacking\na, b = 1, 2\na, b = b, a\nprint(a, b)          # 2 1\n\n# Function returning multiple values (returns a tuple)\ndef min_max(numbers):\n    return min(numbers), max(numbers)\n\nlo, hi = min_max([4, 1, 9, 2])\nprint(lo, hi)        # 1 9"
+    },
+    {
+      "id": "dictionaries",
+      "title": "Dictionaries",
+      "description": "A dictionary stores key-value pairs and provides fast lookup by key. Keys must be unique and immutable (strings and numbers are common choices). As of Python 3.7+, dictionaries preserve insertion order.",
+      "best_practices": [
+        "Use dict.get(key, default) instead of direct access when the key might be absent",
+        "Use dict.items() to iterate over both keys and values simultaneously",
+        "Use a dict comprehension instead of building a dictionary with a for loop + assignment"
+      ],
+      "code": "person = {\n    \"name\": \"Alice\",\n    \"age\": 30,\n    \"city\": \"London\"\n}\n\n# Access\nprint(person[\"name\"])              # Alice\nprint(person.get(\"email\", \"N/A\")) # N/A (no KeyError)\n\n# Add / update\nperson[\"email\"] = \"alice@example.com\"\nperson[\"age\"] = 31\n\n# Remove\ndel person[\"city\"]\n\n# Iterate\nfor key, value in person.items():\n    print(f\"{key}: {value}\")\n\n# Dict comprehension\nscores = {\"Alice\": 95, \"Bob\": 72, \"Carol\": 88}\npassed = {name: s for name, s in scores.items() if s >= 80}\nprint(passed)  # {'Alice': 95, 'Carol': 88}"
+    },
+    {
+      "id": "sets",
+      "title": "Sets",
+      "description": "A set is an unordered collection of unique elements. Duplicates are automatically removed. Sets support the standard mathematical operations — union, intersection, and difference — making them ideal for membership testing and deduplication.",
+      "best_practices": [
+        "Use a set (not a list) for membership testing — `in` on a set is O(1), on a list it's O(n)",
+        "Use set operations (|, &, -) to combine or compare collections instead of writing loops",
+        "Use frozenset when you need an immutable set (e.g. as a dictionary key)"
+      ],
+      "code": "# Creation\ncolors = {\"red\", \"green\", \"blue\"}\nnumbers = set([1, 2, 2, 3, 3, 3])  # {1, 2, 3}\n\n# Membership\nprint(\"red\" in colors)   # True\n\n# Add / remove\ncolors.add(\"yellow\")\ncolors.discard(\"green\")  # no error if missing\n\n# Set operations\na = {1, 2, 3, 4}\nb = {3, 4, 5, 6}\n\nprint(a | b)   # union:        {1, 2, 3, 4, 5, 6}\nprint(a & b)   # intersection: {3, 4}\nprint(a - b)   # difference:   {1, 2}\n\n# Deduplication\ntags = [\"python\", \"code\", \"python\", \"dev\", \"code\"]\nunique = list(set(tags))\nprint(unique)  # order not guaranteed"
+    },
+    {
+      "id": "list-comprehensions",
+      "title": "List Comprehensions",
+      "description": "List comprehensions provide a concise syntax for building lists from existing iterables, replacing the common pattern of creating an empty list and appending inside a for loop. The same syntax extends to dict comprehensions, set comprehensions, and generator expressions.",
+      "best_practices": [
+        "Keep comprehensions to one logical operation — if it needs two filters and a complex transform, use a regular loop",
+        "Use a generator expression (parentheses instead of brackets) when you only need to iterate once — it avoids building the full list in memory",
+        "Avoid nested comprehensions deeper than two levels — they become hard to read quickly"
+      ],
+      "code": "numbers = range(1, 11)\n\n# Basic\nsquares = [n ** 2 for n in numbers]\nprint(squares)\n\n# With filter\nevens = [n for n in numbers if n % 2 == 0]\nprint(evens)       # [2, 4, 6, 8, 10]\n\n# Transform + filter\nbig_squares = [n ** 2 for n in numbers if n > 5]\nprint(big_squares) # [36, 49, 64, 81, 100]\n\n# Dict comprehension\nword_lengths = {word: len(word) for word in [\"apple\", \"fig\", \"banana\"]}\nprint(word_lengths) # {'apple': 5, 'fig': 3, 'banana': 6}\n\n# Set comprehension\nunique_lens = {len(word) for word in [\"apple\", \"fig\", \"banana\", \"pear\"]}\nprint(unique_lens)  # {3, 4, 5, 6}\n\n# Generator (no list built in memory)\ntotal = sum(n ** 2 for n in numbers)\nprint(total)       # 385"
+    },
+    {
+      "id": "classes",
+      "title": "Classes",
+      "description": "A class is a blueprint for creating objects. Python classes use the __init__ method as their constructor and the self parameter to refer to the current instance. Python supports special (dunder) methods to integrate objects with built-in operations like printing and comparison.",
+      "best_practices": [
+        "Use PascalCase for class names (e.g. BankAccount, not bank_account)",
+        "Always include self as the first parameter of every instance method",
+        "Implement __repr__ to make objects easy to debug in the console"
+      ],
+      "code": "class Dog:\n    species = \"Canis familiaris\"  # class attribute (shared)\n\n    def __init__(self, name, age):\n        self.name = name          # instance attribute\n        self.age = age\n\n    def speak(self):\n        return f\"{self.name} says Woof!\"\n\n    def __repr__(self):\n        return f\"Dog(name={self.name!r}, age={self.age})\"\n\n    def __str__(self):\n        return f\"{self.name} ({self.age} years old)\"\n\n\nrex = Dog(\"Rex\", 4)\nprint(rex.speak())   # Rex says Woof!\nprint(repr(rex))     # Dog(name='Rex', age=4)\nprint(str(rex))      # Rex (4 years old)\nprint(Dog.species)   # Canis familiaris"
+    },
+    {
+      "id": "inheritance",
+      "title": "Inheritance",
+      "description": "Inheritance lets a class (child) reuse and extend the behavior of another class (parent). Use super() to call the parent's methods, especially in __init__ to ensure the parent is properly initialized. Python supports multiple inheritance, but keep it simple — one parent is common practice.",
+      "best_practices": [
+        "Call super().__init__() in the child class constructor to initialize the parent's attributes",
+        "Override only the methods that need different behavior — everything else is inherited automatically",
+        "Use isinstance(obj, ClassName) to check type rather than comparing type() directly"
+      ],
+      "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\n    def speak(self):\n        raise NotImplementedError(\"Subclass must implement speak()\")\n\n    def __str__(self):\n        return f\"{self.__class__.__name__}({self.name})\"\n\n\nclass Dog(Animal):\n    def speak(self):\n        return f\"{self.name} says Woof!\"\n\n\nclass Cat(Animal):\n    def speak(self):\n        return f\"{self.name} says Meow!\"\n\n\nanimals = [Dog(\"Rex\"), Cat(\"Whiskers\"), Dog(\"Buddy\")]\nfor animal in animals:\n    print(animal.speak())\n\nprint(isinstance(animals[0], Animal))  # True\nprint(isinstance(animals[0], Dog))     # True\nprint(isinstance(animals[0], Cat))     # False"
+    },
+    {
+      "id": "exceptions",
+      "title": "Try / Except / Finally",
+      "description": "Exception handling lets your program recover from runtime errors gracefully. Code that might raise an error goes in the try block; except handles specific error types; else runs only if no exception occurred; finally always runs and is used for cleanup.",
+      "best_practices": [
+        "Catch specific exception types — avoid bare except: or except Exception: unless you re-raise",
+        "Never silently swallow exceptions with an empty except block — at minimum, log the error",
+        "Use the with statement for resources (files, connections) instead of try/finally to close them"
+      ],
+      "code": "# Basic try/except/finally\ndef divide(a, b):\n    try:\n        result = a / b\n    except ZeroDivisionError:\n        print(\"Cannot divide by zero\")\n        return None\n    else:\n        print(\"Success\")\n        return result\n    finally:\n        print(\"divide() finished\")  # always runs\n\nprint(divide(10, 2))  # Success / 5.0\nprint(divide(10, 0))  # Cannot divide by zero / None\n\n# Multiple exception types\ndef parse_int(value):\n    try:\n        return int(value)\n    except (ValueError, TypeError) as e:\n        print(f\"Could not parse: {e}\")\n        return 0\n\n# Raise custom exceptions\nclass InsufficientFundsError(Exception):\n    pass\n\ndef withdraw(balance, amount):\n    if amount > balance:\n        raise InsufficientFundsError(f\"Need {amount}, have {balance}\")\n    return balance - amount"
+    },
+    {
+      "id": "file-io",
+      "title": "File I/O",
+      "description": "Python's built-in open() function handles reading and writing files. Always use the with statement to open files — it automatically closes the file when the block exits, even if an exception occurs. The mode parameter controls whether you read ('r'), write ('w'), or append ('a').",
+      "best_practices": [
+        "Always use with open(...) — never call open() without closing it in a finally or with block",
+        "Specify the encoding explicitly (encoding='utf-8') to avoid platform-dependent behavior",
+        "Use 'a' (append) mode instead of 'w' (write) when you don't want to overwrite existing content"
+      ],
+      "code": "# Write a file\nwith open(\"notes.txt\", \"w\", encoding=\"utf-8\") as f:\n    f.write(\"Line one\\n\")\n    f.write(\"Line two\\n\")\n\n# Read entire file\nwith open(\"notes.txt\", \"r\", encoding=\"utf-8\") as f:\n    content = f.read()\n    print(content)\n\n# Read line by line (memory efficient for large files)\nwith open(\"notes.txt\", \"r\", encoding=\"utf-8\") as f:\n    for line in f:\n        print(line.strip())\n\n# Append to existing file\nwith open(\"notes.txt\", \"a\", encoding=\"utf-8\") as f:\n    f.write(\"Line three\\n\")\n\n# Read all lines into a list\nwith open(\"notes.txt\", \"r\", encoding=\"utf-8\") as f:\n    lines = f.readlines()\nprint(lines)"
+    },
+    {
+      "id": "modules",
+      "title": "Modules & Imports",
+      "description": "A module is any Python file. The import system lets you bring in code from the standard library, third-party packages, or your own files. Use from x import y to import specific names, keeping your code clear about where things come from.",
+      "best_practices": [
+        "Put all imports at the top of the file — standard library first, then third-party, then local",
+        "Avoid import * — it pollutes the namespace and makes it unclear where names come from",
+        "Use aliasing (import numpy as np) only for well-established community conventions"
+      ],
+      "code": "# Standard library\nimport os\nimport math\nfrom datetime import datetime, timedelta\nfrom collections import defaultdict\n\n# Usage\nprint(math.sqrt(16))          # 4.0\nprint(math.pi)\nprint(os.getcwd())            # current directory\n\nnow = datetime.now()\ntomorrow = now + timedelta(days=1)\nprint(tomorrow.strftime(\"%Y-%m-%d\"))\n\n# defaultdict: missing keys return a default value\ncounts = defaultdict(int)\nfor word in [\"apple\", \"banana\", \"apple\"]:\n    counts[word] += 1\nprint(dict(counts))           # {'apple': 2, 'banana': 1}\n\n# Importing your own module\n# In utils.py:  def helper(): ...\n# Here:         from utils import helper"
+    },
+    {
+      "id": "lambda",
+      "title": "Lambda Expressions",
+      "description": "A lambda is a small anonymous function defined in a single expression. Lambdas are limited to one expression and always return its value. They are most useful as short callbacks passed to functions like sorted(), map(), and filter().",
+      "best_practices": [
+        "Use lambdas only for simple, one-expression functions — define a named function with def for anything longer",
+        "Prefer a named function when the lambda is assigned to a variable — that's just a worse def",
+        "Use operator.attrgetter or operator.itemgetter instead of a lambda when sorting by a key"
+      ],
+      "code": "# Basic lambda\nsquare = lambda x: x ** 2\nprint(square(5))   # 25\n\n# As a sort key\npeople = [(\"Alice\", 30), (\"Bob\", 25), (\"Carol\", 35)]\npeople.sort(key=lambda person: person[1])\nprint(people)  # [('Bob', 25), ('Alice', 30), ('Carol', 35)]\n\n# With sorted() (returns new list)\nwords = [\"banana\", \"fig\", \"apple\", \"date\"]\nby_length = sorted(words, key=lambda w: len(w))\nprint(by_length)  # ['fig', 'date', 'apple', 'banana']\n\n# map() and filter()\nnumbers = [1, 2, 3, 4, 5]\nsquares = list(map(lambda n: n ** 2, numbers))\nevens = list(filter(lambda n: n % 2 == 0, numbers))\nprint(squares)  # [1, 4, 9, 16, 25]\nprint(evens)    # [2, 4]"
+    },
+    {
+      "id": "decorators",
+      "title": "Decorators",
+      "description": "A decorator is a function that wraps another function to extend or modify its behavior without changing its source code. Decorators are applied with the @ syntax above a function definition. They are widely used for logging, timing, access control, and caching.",
+      "best_practices": [
+        "Use functools.wraps on the inner wrapper function to preserve the original function's name and docstring",
+        "Keep decorators focused on a single cross-cutting concern (logging, timing, auth) — don't bundle multiple behaviors",
+        "Use functools.lru_cache (or @cache in Python 3.9+) for memoizing pure functions instead of writing your own cache decorator"
+      ],
+      "code": "import functools\nimport time\n\n# A simple decorator\ndef timer(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        start = time.perf_counter()\n        result = func(*args, **kwargs)\n        elapsed = time.perf_counter() - start\n        print(f\"{func.__name__} took {elapsed:.4f}s\")\n        return result\n    return wrapper\n\n\n@timer\ndef slow_sum(n):\n    return sum(range(n))\n\n\nprint(slow_sum(1_000_000))\n# slow_sum took 0.0312s\n# 499999500000\n\n# Built-in: memoization\nfrom functools import lru_cache\n\n@lru_cache(maxsize=None)\ndef fibonacci(n):\n    if n < 2:\n        return n\n    return fibonacci(n - 1) + fibonacci(n - 2)\n\nprint(fibonacci(50))  # instant"
+    },
+    {
+      "id": "type-hints",
+      "title": "Type Hints",
+      "description": "Type hints let you annotate variables, function parameters, and return types with their expected types. Python does not enforce them at runtime — they are for documentation and static analysis tools like mypy and IDE autocompletion. Type hints make code intentions explicit without adding overhead.",
+      "best_practices": [
+        "Annotate function signatures (parameters + return type) as a minimum — variable annotations are optional",
+        "Use Optional[X] (or X | None in Python 3.10+) when a value can be None",
+        "Run a type checker like mypy in CI to catch type errors before runtime"
+      ],
+      "code": "from typing import Optional\n\n# Basic annotations\ndef greet(name: str, times: int = 1) -> str:\n    return (name + \"! \") * times\n\n\n# Optional parameter (may be None)\ndef find_user(user_id: int) -> Optional[str]:\n    users = {1: \"Alice\", 2: \"Bob\"}\n    return users.get(user_id)\n\n\n# Collections\ndef average(numbers: list[float]) -> float:\n    return sum(numbers) / len(numbers)\n\n\n# Python 3.10+ union syntax\ndef process(value: int | str) -> str:\n    return str(value)\n\n\nprint(greet(\"Alice\", 2))      # Alice! Alice!\nprint(find_user(1))           # Alice\nprint(find_user(99))          # None\nprint(average([1.0, 2.5, 3.5])) # 2.333..."
+    },
+    {
+      "id": "generators",
+      "title": "Generators & yield",
+      "description": "A generator is a function that uses yield to produce values one at a time, pausing execution between each. Generators are memory-efficient because they produce values lazily — only when requested — rather than building an entire list upfront. They are ideal for large sequences or infinite streams.",
+      "best_practices": [
+        "Use generators when iterating over large data sets to avoid loading everything into memory at once",
+        "Use a generator expression (parentheses) instead of a list comprehension when you only need to iterate once",
+        "Prefer yield from to delegate to another generator instead of looping and yielding each item manually"
+      ],
+      "code": "# Basic generator function\ndef count_up(start, end):\n    current = start\n    while current <= end:\n        yield current\n        current += 1\n\nfor n in count_up(1, 5):\n    print(n)  # 1 2 3 4 5\n\n# Generator is lazy — values produced on demand\ndef squares(n):\n    for i in range(n):\n        yield i ** 2\n\ngen = squares(1_000_000)  # no list created yet\nprint(next(gen))  # 0\nprint(next(gen))  # 1\n\n# Generator expression\ntotal = sum(x ** 2 for x in range(1000))  # no list\nprint(total)\n\n# yield from — delegate to another iterable\ndef chain(*iterables):\n    for it in iterables:\n        yield from it\n\nprint(list(chain([1, 2], [3, 4], [5])))\n# [1, 2, 3, 4, 5]"
+    }
+  ]
+}

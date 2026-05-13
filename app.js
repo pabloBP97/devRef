@@ -1,5 +1,6 @@
 const LANGUAGES = [
-  { id: 'java', label: 'Java' },
+  { id: 'java',   label: 'Java'   },
+  { id: 'python', label: 'Python' },
 ];
 
 const fetchedData = {};

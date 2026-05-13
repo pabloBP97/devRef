@@ -2,13 +2,14 @@
 
 A personal, static developer reference tool for quickly refreshing your memory on a programming language after a long break. Not a tutorial — just the essentials: descriptions, best practices, and runnable code examples.
 
-Live at: **[your-username.github.io/devref](https://your-username.github.io/devref)**
+Live at: **[pablobp97.github.io/devRef](https://pablobp97.github.io/devRef/)**
 
 ---
 
 ## What's inside
 
 - Java — 20 topics covering classes, methods, loops, collections, interfaces, lambdas, streams, and more
+- Python — 20 topics covering variables, functions, strings, comprehensions, classes, decorators, generators, and more
 
 ---
 
